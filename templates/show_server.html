@@ -1,0 +1,210 @@
+{%extends "base.html" %} {% block mainbody %}
+
+
+<div class="container-fluid">
+  <!-- SELECT2 EXAMPLE -->
+  <div class="card card-default">
+    <div class="card-header">
+      <h1 class="card-title">选择命名空间</h1>
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <div class="col-12 col-sm-6">
+        <div class="form-group">
+          <form action="{% url 'show_server' %}" method="POST">
+            <select name="selectFrom" class="form-control select2 select2-danger"
+              data-dropdown-css-class="select2-danger" style="width: 100%;">
+              {% for n in namespace %}
+              <option selected="default">{{ n }}</option>
+              {% endfor %}
+            </select>
+            <span class="input-group-append">
+              <button type="submit" class="btn btn-info btn-flat">查找</button>
+            </span>
+          </form>
+
+        </div>
+
+      </div>
+
+
+
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+
+
+
+
+<div class="container-fluid">
+  <!-- SELECT2 EXAMPLE -->
+  <div class="card card-default">
+    <div class="card-header">
+      <h1 class="card-title">POD信息</h1>
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>ip</th>
+              <th>命名空间</th>
+              <th>metadata</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in pod %}
+            <tr>
+              <td>{{ i.ip }}</td>
+              <td>{{ i.namespace }}</td>
+
+              <td>{{ i.metadata_name }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+      </div>
+
+
+
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+
+<div class="container-fluid">
+  <!-- SELECT2 EXAMPLE -->
+  <div class="card card-default">
+    <div class="card-header">
+      <h1 class="card-title">Deloyment信息</h1>
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>副本数</th>
+              <th>副本状态</th>
+              <th>unavailable</th>
+              <th>image</th>
+              <th>match_labels</th>
+              <th>创建时间</th>
+              <th>更新时间</th>
+              <th>状态</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in deployment %}
+            <tr>
+              <td>{{ i.replicas }}</td>
+              <td>{{ i.replicas_status }}</td>
+              <td>{{ i.unavailable }}</td>
+              <td>{{ i.image }}</td>
+              <td>{{ i.match_labels }}</td>
+
+              <td>{{ i.start_time }}</td>
+              <td>{{ i.update_time }}</td>
+              <td>{{ i.status }}</td>
+
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+      </div>
+
+
+
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+<div class="container-fluid">
+  <!-- SELECT2 EXAMPLE -->
+  <div class="card card-default">
+    <div class="card-header">
+      <h1 class="card-title">Service信息</h1>
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>服务名字</th>
+              <th>创建时间</th>
+              <th>集群ip</th>
+              <th>端口</th>
+              <th>app</th>
+              <th>类型</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in service %}
+            <tr>
+              <td>{{ i.service_name }}</td>
+              <td>{{ i.start_time }}</td>
+              <td>{{ i.cluster_ip }}</td>
+              <td>{{ i.ports }}</td>
+              <td>{{ i.selector }}</td>
+              <td>{{ i.type }}</td>
+
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+      </div>
+
+
+
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+
+
+{% endblock %}

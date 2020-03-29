@@ -1,0 +1,159 @@
+{%extends "base.html" %}
+
+{% block mainbody %}
+<p>继承了 base.html 文件</p>
+<p>111</p>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <h3 class="card-title">选择命令空间</h3>
+            <div class="card-body3">
+                <form class="form-inline" action="{% url 'show_server' %}" method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <div class="col-lg-8">
+                            <select class="form-control" id="demoSelect" name="q">
+                                {% for n in     namespace %}
+                                <option value="{{ n }}">{{ n }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <button class="btn btn-primary icon-btn" type="submit"><i
+                                class="fa fa-fw fa-lg fa-check-circle"></i>查找</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <h3 class="card-title">pod信息</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ip</th>
+                        <th>命名空间</th>
+                        <th>metadata</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in     pod %}
+
+                    <tr>
+                        <td>{{i.ip}}</td>
+                        <td>{{ i.namespace }}</td>
+                        <td>{{ i.metadata_name }}</td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <h3 class="card-title">service信息</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+<br>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <h3 class="card-title">deployment信息</h3>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Username</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+<br>
+
+{% endblock %}

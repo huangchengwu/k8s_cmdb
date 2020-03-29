@@ -1,0 +1,256 @@
+{%extends "base.html" %} {% block mainbody %}
+
+
+<div class="container-fluid">
+  <!-- SELECT2 EXAMPLE -->
+  <div class="card card-default">
+    <div class="card-header">
+      <h1 class="card-title">服务列表</h1>
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+      </div>
+    </div>
+    <div class="card-body">
+
+
+
+
+      <div class="card">
+        <form action="{% url  'select_content' %}" method="GET">
+          <style>
+            .intro {
+              margin: 10px 1px 10px 15px;
+
+
+            }
+          </style>
+          <ul class="nav nav-pills ml-auto" style="float: right;">
+
+
+            <li class="nav-item">
+              <input type="submit" name="deloy" value="发布" class="nav-link active intro">
+
+
+            </li>
+            <li class="nav-item">
+              <input type="submit" name="delete" value="删除" class="nav-link active intro">
+            </li>
+
+
+          </ul>
+
+
+          <table class="table table-bordered">
+
+
+            <thead>
+              <tr>
+                <th> <input id="checkAll" type="checkbox" value="" />全选</th>
+
+                <th>服务名字</th>
+                <th>描述</th>
+                <th>git地址</th>
+                <th>执行脚本</th>
+                <th>项目类型</th>
+                <th>钉钉api</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for c in content %}
+              <tr>
+                <td><input name="subBox" type="checkbox" value="{{ c.Server_name }}"></td>
+                <td>{{ c.Server_name }}</td>
+                <td>{{ c.Describe }}</td>
+                <td>{{ c.Git_url }}</td>
+                <td>{{ c.Shell }}</td>
+                <td>{{ c.ProjectType }}</td>
+                <td>{{ c.Ding }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+
+
+        </form>
+
+      </div>
+
+
+
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="container-fluid">
+  <!-- SELECT2 EXAMPLE -->
+  <div class="card card-default">
+    <div class="card-header">
+      <h1 class="card-title">执行完毕</h1>
+
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <div class="card">
+        <table class="table table-bordered">
+          <thead>
+
+            <tr>
+              <th>状态</th>
+              <th>服务名字</th>
+              <th>开始时间</th>
+              <th>结束时间</th>
+              <th>操作</th>
+            </tr>
+
+          </thead>
+          <tbody>
+            {% for d in deloy_server_info%}
+            <tr>
+              <td>{{ d.Status }}</td>
+              <td> {{ d.Server_name }}</td>
+              <td>{{ d.Start_time }}</td>
+              <td>{{ d.End_time }}</td>
+              <td><a type="button"
+                  href="{% url  'show_exec_result'  %}?Start_time={{ d.Start_time }}&server_name={{ d.Server_name}}"
+                  class="btn btn-block btn-primary btn-flat">实时查看</a><button
+                  class="btn btn-block btn-danger btn-flat">停止任务</button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid">
+  <!-- SELECT2 EXAMPLE -->
+  <div class="card card-default">
+    <div class="card-header">
+      <h1 class="card-title">进行中</h1>
+
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-remove"></i></button>
+      </div>
+    </div>
+    <div class="card-body">
+
+
+
+      <div class="card">
+        <table class="table table-bordered">
+          <thead>
+
+            <tr>
+              <th>状态</th>
+              <th>服务名字</th>
+              <th>开始时间</th>
+              <th>结束时间</th>
+              <th>操作</th>
+            </tr>
+
+          </thead>
+          <tbody id="deloy_server_info">
+
+          </tbody>
+        </table>
+      </div>
+
+
+
+    </div>
+
+
+  </div>
+
+</div>
+<script>
+  function startRequest() {
+    list = {
+      "data": 1
+
+    }
+    // window.location.reload()
+    $.ajax({
+      //请求方式
+      type: "POST",
+      //请求的媒体类型
+      contentType: "application/json;charset=UTF-8",
+      //请求地址
+      url: "{% url 'deloy_server' %}",
+      //数据，json字符串
+      data: JSON.stringify(list),
+      //请求成功
+      success: function (e) {
+        d = JSON.parse(e)
+
+
+        console.log(d["result"]);
+        tr = ""
+
+        for (index in d["result"]) {
+
+          td1 = "<td>" + d["result"][index]["Status"] + "</td>"
+          td2 = "<td>" + d["result"][index]["Server_name"] + "</td>"
+          td3 = "<td>" + d["result"][index]["Start_time"] + "</td>"
+          td4 = "<td>" + d["result"][index]["End_time"] + "</td>"
+
+          td5 =
+            "<td><a type='button'   class='btn btn-block btn-primary btn-flat'  href=/show_exec_process/?Start_time=" +
+            d["result"][index]["Start_time"] +
+            "&Server_name=" + d["result"][index]["Server_name"] +
+            ">实时查看</a><button  class='btn btn-block btn-danger btn-flat'> 停止任务</button></td>"
+          tr += "<tr>" + td1 + td2 + td3 + td4 + td5 + "</tr>"
+
+        }
+        $("#deloy_server_info").html(tr)
+
+      },
+      //请求失败，包含具体的错误信息
+      error: function (e) {
+        console.log(e.status);
+        console.log(e.responseText);
+      }
+    });
+
+  }
+
+  $(function () {
+    setInterval("startRequest()", 1000);
+  });
+</script>
+{% endblock %}

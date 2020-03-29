@@ -1,0 +1,90 @@
+{%extends "base.html" %} {% block mainbody %}
+
+
+<div class="container-fluid">
+    <!-- SELECT2 EXAMPLE -->
+    <div class="card card-default">
+        <div class="card-header">
+            <h1 class="card-title">执行过程</h1>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                        class="fas fa-minus"></i></button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                        class="fas fa-remove"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>服务: {{  result.Server_name }}</li>
+                <li>开始时间： {{ result.Start_time }}</li>
+                <li>结束时间 : {{ result.End_time }}</li>
+
+
+                <li>状态 :{{ result.Status }} </li>
+                <li>脚本 : {{ result.Exec }}</li>
+
+            </ul>
+
+            <pre>{{ result.Stdout  }}</pre>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+    function startRequest() {
+        function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split("&");
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split("=");
+                if (pair[0] == variable) {
+                    return pair[1];
+                }
+            }
+            return (false);
+        }
+
+        d = {
+            Start_time: getQueryVariable("Start_time"),
+            Server_name: getQueryVariable("Server_name")
+        }
+
+        $.ajax({
+            //请求方式
+            type: "POST",
+            //请求的媒体类型
+            contentType: "application/json;charset=UTF-8",
+            //请求地址
+            url: "{% url 'show_exec_process' %}",
+            //数据，json字符串
+            data: JSON.stringify(d),
+            //请求成功
+            success: function (e) {
+                d = JSON.parse(e)
+                console.log(d)
+
+                $("pre").html(d.Stdout)
+
+
+            },
+            //请求失败，包含具体的错误信息
+            error: function (e) {
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        });
+
+    }
+
+    $(function () {
+        setInterval("startRequest()", 1000);
+    });
+</script>
+{% endblock %}

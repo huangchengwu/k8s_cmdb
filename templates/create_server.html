@@ -1,0 +1,84 @@
+{%extends "base.html" %}
+{% block mainbody %}
+
+
+
+
+<section class="content">
+
+
+  <div class="container-fluid">
+    <div class="card card-default">
+      <div class="card-header">
+        <h3 class="card-title">请配置服务信息</h3>
+
+      </div>
+      <div class="card-body">
+        <section class="content">
+          <div class="container-fluid">
+
+
+            <div class="col-md-12">
+
+              <div class="card-body">
+                <form role="form" action="" method="POST">
+
+                  {% csrf_token %}
+                  {% for create_server_from in create_server_froms %}
+
+
+                  <div class="col-sm-6">
+                    <!-- textarea -->
+                    <div class="form-group">
+                      <label>{{ create_server_from.label }}</label>
+                      {{ create_server_from }}
+
+
+                    </div>
+                  </div>
+
+
+
+
+                  {% endfor %}
+
+
+                  <div class="col-sm-6">
+
+
+                    <div class="form-group">
+                      <input type="submit" class="btn btn-primary">
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+
+
+      </div>
+</section>
+</div>
+
+
+
+</div>
+</div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

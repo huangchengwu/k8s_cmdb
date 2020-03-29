@@ -1,0 +1,72 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>豆盟k8s发布平台登陆</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/ionicons.min.css">
+    <link rel="stylesheet" href="/static/css/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/adminlte.min.css">
+</head>
+
+<body class="login-page" style="min-height: 512.8px;">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="../../index2.html"><b>豆盟k8s发布平台登陆</b></a>
+        </div>
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">欢迎登陆</p>
+
+                <form action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <input type="username" class="form-control" name="username" placeholder="username">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" name="password" placeholder="Password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <!-- <div class="icheck-primary">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">
+                                    保存密码
+                                </label>
+                            </div> -->
+                        </div>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">登陆</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/adminlte.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            if ("{{ imagess }}" == 1000) {
+                return
+
+            }
+            alert("{{ imagess }}")
+        });
+    </script>
+</body>
+
+</html>

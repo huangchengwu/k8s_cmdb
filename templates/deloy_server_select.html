@@ -1,0 +1,105 @@
+{%extends "base.html" %} {% block mainbody %}
+
+
+<section class="content">
+
+
+    <div class="container-fluid">
+        <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">服务发布选择</h3>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'select_content' %}" method="POST">
+
+                    {% csrf_token %}
+
+                    {% for c in content %}
+                    {% for info in c.info %}
+
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                            <label>服务名字</label>
+                            <input type="text" name="Server_name" class="form-control"
+                                value="{{info.fields.Server_name}}" disabled="">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                            <label>项目类型</label>
+                            <input type="text" name="ProjectType" class="form-control"
+                                value="{{info.fields.ProjectType}}" disabled="">
+                        </div>
+                    </div>
+
+
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                            <label>描述</label>
+                            <input type="text" name="describe" class="form-control" value="{{info.fields.Describe}}"
+                                disabled="">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                            <label>git地址</label>
+                            <input type="text" name="git_url" class="form-control" value="{{info.fields.Git_url}}"
+                                disabled="">
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                            <label>shell脚本</label>
+                            <input type="text" name="shell" class="form-control" value="{{info.fields.Shell}}"
+                                disabled="">
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                            <label>Ding</label>
+                            <input type="text" name="Ding" class="form-control" value="{{info.fields.Ding}}"
+                                disabled="">
+                        </div>
+                    </div>
+
+
+                    <div class="col-12 col-sm-6">
+
+                        <div class="form-group">
+                            <select name="select_data" class="form-control select2 select2-danger"
+                                data-dropdown-css-class="select2-danger" style="width: 100%;">
+                                {% for tag in c.tag %}
+                                <option selected="default">{{ tag }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                    {% endfor %}
+                    <div class="col-12 col-sm-6">
+
+                        <div class="form-group">
+                            <input type="submit" id="put_content" class="btn btn-primary" value="提交">
+                        </div>
+                    </div>
+
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+</section>
+
+
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{%extends "base.html" %} {% block mainbody %}
+
+
+<div class="container-fluid">
+    <!-- SELECT2 EXAMPLE -->
+    <div class="card card-default">
+        <div class="card-header">
+            <h1 class="card-title">执行结果</h1>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                        class="fas fa-minus"></i></button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                        class="fas fa-remove"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul>
+                <li>服务: {{  result.Server_name }}</li>
+                <li>开始时间： {{ result.Start_time }}</li>
+                <li>结束时间 : {{ result.End_time }}</li>
+
+
+                <li>状态 :{{ result.Status }} </li>
+                <li>脚本 : {{ result.Exec }}</li>
+
+            </ul>
+
+            <pre>{{ result.Stdout  }}</pre>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+{% endblock %}
